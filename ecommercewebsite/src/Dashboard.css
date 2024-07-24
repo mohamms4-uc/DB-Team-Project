@@ -1,0 +1,75 @@
+/* src/Dashboard.css */
+
+.dashboard-container {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+.profile-card {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: lightblue;
+    border-radius: 10px;
+    padding: 20px;
+    width: 50vw;
+    height: 50vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.inner-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    box-sizing: border-box;
+    max-width: 50%;
+}
+
+.inner-card h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: medium;
+}
+
+.inner-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: medium;
+}
+
+.inner-card input {
+    display: block;
+    width: 90%;
+    margin: 5px auto;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.inner-card button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.inner-card button:hover {
+    background-color: #0056b3;
+}
