@@ -23,8 +23,6 @@ const Dashboard = () => {
                 .catch(error => {
                     console.error('Error fetching user data:', error);
                 });
-        } else {
-            console.log('UserId is null');
         }
     }, [userId]);
 
@@ -42,11 +40,7 @@ const Dashboard = () => {
         console.log('New address added:', newAddress);
         setUserData(prevData => ({
             ...prevData,
-            street: newAddress.street,
-            city: newAddress.city,
-            state: newAddress.state,
-            postal_code: newAddress.postal_code,
-            country: newAddress.country,
+            addresses: [...(prevData.addresses || []), newAddress]
         }));
         setIsModalOpen(false);
     };
@@ -68,7 +62,15 @@ const Dashboard = () => {
                         <button className="add-button">Edit</button>
                     </div>
                     <div className="address-info">
-                        <p>{userData.street} {userData.city}, {userData.state} {userData.postal_code} {userData.country}</p>
+                        {userData.addresses && userData.addresses.length > 0 ? (
+                            userData.addresses.map((address, index) => (
+                                <p key={index}>
+                                    {address.street}, {address.city}, {address.state} {address.postal_code} {address.country}
+                                </p>
+                            ))
+                        ) : (
+                            <p>No addresses available.</p>
+                        )}
                     </div>
                 </div>
                 <div className="inner-card">
