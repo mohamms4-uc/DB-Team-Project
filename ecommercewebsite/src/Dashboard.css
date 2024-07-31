@@ -1,7 +1,6 @@
 /* src/Dashboard.css */
 
-/* Existing styles */
-
+/* Ensure the dashboard container covers the full viewport */
 .dashboard-container {
     position: relative;
     height: 100vh;
@@ -9,6 +8,7 @@
     box-sizing: border-box;
 }
 
+/* Style for the profile card container */
 .profile-card {
     position: absolute;
     bottom: 0;
@@ -26,6 +26,7 @@
     overflow: auto;
 }
 
+/* Style for individual inner cards within the profile card */
 .inner-card {
     background-color: white;
     border-radius: 10px;
@@ -34,9 +35,10 @@
     flex: 1;
     box-sizing: border-box;
     max-width: 50%;
-    position: relative; /* Ensure button positioning is correct */
+    position: relative;
 }
 
+/* Header style for inner cards */
 .inner-card h2 {
     margin-top: 0;
     margin-bottom: 10px;
@@ -44,13 +46,7 @@
     font-size: medium;
 }
 
-.inner-card h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    text-align: center;
-    font-size: medium;
-}
-
+/* Style for input fields in inner cards */
 .inner-card input {
     display: block;
     width: 90%;
@@ -60,6 +56,7 @@
     border: 1px solid #ccc;
 }
 
+/* General button styling in inner cards */
 .inner-card button {
     display: block;
     width: 100%;
@@ -73,80 +70,76 @@
     margin-top: 10px;
 }
 
+/* Hover effect for general buttons */
 .inner-card button:hover {
     background-color: #0056b3;
 }
 
-/* New styles for address section with smaller button */
-.address-section {
-    display: flex;
-    align-items: center; /* Vertically center items */
-    justify-content: space-between; /* Space between text and button */
-    margin-bottom: 15px; /* Space below the address section */
-}
-
-.address-section h2 {
-    margin: 0; /* Remove default margin */
-}
-
-.address-section .add-button {
-    background-color: #007bff; 
-    color: white; 
-    border: none; 
-    border-radius: 5px; 
-    padding: 4px 8px; 
-    cursor: pointer; 
-    font-size: 12px; 
-}
-
-.address-section .add-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
-
-.address-info {
-    margin-top: 10px; /* Space between title/button and address info */
-}
-
+/* Header container style for adding address */
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.add-button {
+/* Style for the add button in the header container */
+.header-container .add-button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    font-size: 20px; /* Larger font size for + sign */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 1px solid #ccc;
     background-color: #007bff;
     color: white;
-    border: none;
-    padding: 6px 12px; /* Smaller padding */
-    font-size: 12px; /* Smaller font size */
     cursor: pointer;
+    text-align: center;
 }
 
-.add-button:hover {
+.header-container .add-button:hover {
     background-color: #0056b3;
 }
 
+/* Style for address information section */
+.address-info {
+    margin-top: 10px;
+}
+
+/* Style for each address item */
 .address-item {
     display: flex;
-    align-items: center; /* Vertically center items */
+    align-items: center;
     margin-bottom: 10px;
-    justify-content: space-between; /* Space between text and button */
+    justify-content: space-between;
 }
 
+/* Style for address text */
 .address-item p {
-    margin: 0; /* Remove default margin */
-    flex: 1; /* Allow text to take up available space */
+    margin: 0;
+    flex: 1;
 }
 
-.delete-button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 4px 8px; /* Smaller padding */
-    font-size: 12px; /* Smaller font size */
-    cursor: pointer;
+/* Style for delete button */
+.profile-card .address-item .delete-button {
+    background-color: red; /* Red background */
+    color: white; /* White text color */
+    border: none; /* Remove default border */
+    padding: 0; /* Remove padding */
+    font-size: 20px; /* Font size for dash sign */
+    cursor: pointer; /* Pointer cursor */
+    width: 30px; /* Square button width */
+    height: 30px; /* Square button height */
+    display: flex; /* Flexbox to center content */
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+    border-radius: 5px; /* Rounded corners */
+    text-align: center; /* Center text */
 }
 
-.delete-button:hover {
-    background-color: darkred;
+/* Hover effect for delete button */
+.profile-card .address-item .delete-button:hover {
+    background-color: darkred; /* Darker red on hover */
 }
