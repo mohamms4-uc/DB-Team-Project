@@ -129,6 +129,19 @@ app.post('/api/creditcard', async (req, res) => {
     }
 });
 
+// display credit cards that match userID
+app.get('/api/creditcards/:userId', async (req, res) => {
+    const { userId } = req.params;
+    
+    try {
+        const result = await pool.query('SELECT * FROM creditcard WHERE c_user_id = $1', [userId]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching credit card data:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 
 app.listen(port, () => {

@@ -11,6 +11,7 @@ const Dashboard = () => {
     const location = useLocation();
     const { userId } = location.state || { userId: null };
     const [userData, setUserData] = useState(null);
+    const [creditCards, setCreditCards] = useState([]);
     const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
     const [isCreditCardModalOpen, setIsCreditCardModalOpen] = useState(false);
 
@@ -24,6 +25,16 @@ const Dashboard = () => {
                 })
                 .catch(error => {
                     console.error('Error fetching user data:', error);
+                });
+
+            // Fetch credit card information
+            axios.get(`http://localhost:5000/api/creditcards/${userId}`)
+                .then(response => {
+                    console.log('Credit card data fetched:', response.data);
+                    setCreditCards(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching credit card data:', error);
                 });
         }
     }, [userId]);
@@ -59,12 +70,7 @@ const Dashboard = () => {
 
     const handleCreditCardAdded = (newCard) => {
         console.log('New card added:', newCard);
-        setUserData(prevData => ({
-            ...prevData,
-            card_number: newCard.card_number,
-            pin: newCard.pin,
-            expiration_date: newCard.expiration_date
-        }));
+        setCreditCards(prevCards => [...prevCards, newCard]); // Append new card to the list
         setIsCreditCardModalOpen(false);
     };
 
@@ -113,8 +119,14 @@ const Dashboard = () => {
                 </div>
                 <div className="inner-card">
                     <h2>Credit Card Information</h2>
-                    <p><strong>Card Number:</strong> {userData.card_number}</p>
-
+                    <p><strong> Card Number: </strong>{userData.card_number}</p>
+                    <div className="credit-card-info">
+                        {creditCards.map((card) => (
+                            <p key={card.credit_id}>
+                                <strong>Card Number:</strong> {card.card_number} 
+                            </p>
+                        ))}
+                    </div>
                     <button className="add-button" onClick={handleAddCreditCard}>+</button>
                 </div>
             </div>
