@@ -95,6 +95,19 @@ app.post('/api/address', async (req, res) => {
     }
 });
 
+// Endpoint to delete an address
+app.delete('/api/address/:addressId', async (req, res) => {
+    const addressId = parseInt(req.params.addressId);
+    try {
+        await pool.query('DELETE FROM address WHERE address_id = $1', [addressId]);
+        res.status(204).send(); // No Content
+    } catch (err) {
+        console.error('Error deleting address:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

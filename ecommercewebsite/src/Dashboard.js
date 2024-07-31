@@ -45,6 +45,18 @@ const Dashboard = () => {
         setIsModalOpen(false);
     };
 
+    const handleDeleteAddress = async (addressId) => {
+        try {
+            await axios.delete(`http://localhost:5000/api/address/${addressId}`);
+            setUserData(prevData => ({
+                ...prevData,
+                addresses: prevData.addresses.filter(address => address.address_id !== addressId)
+            }));
+        } catch (error) {
+            console.error('Error deleting address:', error);
+        }
+    };
+
     if (!userData) {
         return <p>Loading user data...</p>;
     }
@@ -55,18 +67,24 @@ const Dashboard = () => {
             <ItemList />
             <div className="profile-card">
                 <div className="inner-card">
-                    <h2>Address Information</h2>
-                    <div className="address-section">
+                    <div className="header-container">
+                        <h2>Address Information</h2>
                         <button className="add-button" onClick={handleAddAddress}>Add</button>
-                        <button className="add-button">Delete</button>
-                        <button className="add-button">Edit</button>
                     </div>
                     <div className="address-info">
                         {userData.addresses && userData.addresses.length > 0 ? (
-                            userData.addresses.map((address, index) => (
-                                <p key={index}>
-                                    {address.street}, {address.city}, {address.state} {address.postal_code} {address.country}
-                                </p>
+                            userData.addresses.map((address) => (
+                                <div key={address.address_id} className="address-item">
+                                    <p>
+                                        {address.street}, {address.city}, {address.state} {address.postal_code} {address.country}
+                                    </p>
+                                    <button 
+                                        className="delete-button" 
+                                        onClick={() => handleDeleteAddress(address.address_id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             ))
                         ) : (
                             <p>No addresses available.</p>

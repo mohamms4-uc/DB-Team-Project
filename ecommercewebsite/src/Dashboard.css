@@ -106,3 +106,47 @@
 .address-info {
     margin-top: 10px; /* Space between title/button and address info */
 }
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px; /* Smaller padding */
+    font-size: 12px; /* Smaller font size */
+    cursor: pointer;
+}
+
+.add-button:hover {
+    background-color: #0056b3;
+}
+
+.address-item {
+    display: flex;
+    align-items: center; /* Vertically center items */
+    margin-bottom: 10px;
+    justify-content: space-between; /* Space between text and button */
+}
+
+.address-item p {
+    margin: 0; /* Remove default margin */
+    flex: 1; /* Allow text to take up available space */
+}
+
+.delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 4px 8px; /* Smaller padding */
+    font-size: 12px; /* Smaller font size */
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
