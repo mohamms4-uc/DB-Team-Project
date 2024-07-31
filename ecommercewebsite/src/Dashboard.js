@@ -5,12 +5,14 @@ import './Dashboard.css';
 import ItemList from './ItemList';
 import Cart from './Cart';
 import AddAddressModal from './AddAddressModal';
+import AddCreditCardModal from './AddCreditCardModal'; // Import the new modal
 
 const Dashboard = () => {
     const location = useLocation();
     const { userId } = location.state || { userId: null };
     const [userData, setUserData] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+    const [isCreditCardModalOpen, setIsCreditCardModalOpen] = useState(false);
 
     useEffect(() => {
         if (userId) {
@@ -28,12 +30,22 @@ const Dashboard = () => {
 
     const handleAddAddress = () => {
         console.log('Add Address button clicked');
-        setIsModalOpen(true);
+        setIsAddressModalOpen(true);
     };
 
-    const handleCloseModal = () => {
-        console.log('Modal closed');
-        setIsModalOpen(false);
+    const handleAddCreditCard = () => {
+        console.log('Add Credit Card button clicked');
+        setIsCreditCardModalOpen(true);
+    };
+
+    const handleCloseAddressModal = () => {
+        console.log('Address Modal closed');
+        setIsAddressModalOpen(false);
+    };
+
+    const handleCloseCreditCardModal = () => {
+        console.log('Credit Card Modal closed');
+        setIsCreditCardModalOpen(false);
     };
 
     const handleAddressAdded = (newAddress) => {
@@ -42,7 +54,18 @@ const Dashboard = () => {
             ...prevData,
             addresses: [...(prevData.addresses || []), newAddress]
         }));
-        setIsModalOpen(false);
+        setIsAddressModalOpen(false);
+    };
+
+    const handleCreditCardAdded = (newCard) => {
+        console.log('New card added:', newCard);
+        setUserData(prevData => ({
+            ...prevData,
+            card_number: newCard.card_number,
+            pin: newCard.pin,
+            expiration_date: newCard.expiration_date
+        }));
+        setIsCreditCardModalOpen(false);
     };
 
     const handleDeleteAddress = async (addressId) => {
@@ -61,7 +84,6 @@ const Dashboard = () => {
         return <p>Loading user data...</p>;
     }
 
-
     return (
         <div className="dashboard-container">
             <Cart />
@@ -73,7 +95,7 @@ const Dashboard = () => {
                         <button className="add-button" onClick={handleAddAddress}>+</button>
                     </div>
                     <div className="address-info">
-                    <p>{userData.street} {userData.city}, {userData.state} {userData.postal_code} {userData.country}</p>
+                        <p>{userData.street} {userData.city}, {userData.state} {userData.postal_code} {userData.country}</p>
                         {userData.addresses.map((address) => (
                             <div key={address.address_id} className="address-item">
                                 <p>
@@ -92,16 +114,24 @@ const Dashboard = () => {
                 <div className="inner-card">
                     <h2>Credit Card Information</h2>
                     <p><strong>Card Number:</strong> {userData.card_number}</p>
-                    <p><strong>PIN:</strong> {userData.pin}</p>
-                    <p><strong>Expiration Date:</strong> {userData.expiration_date}</p>
+
+                    <button className="add-button" onClick={handleAddCreditCard}>+</button>
                 </div>
             </div>
-            {isModalOpen && (
+            {isAddressModalOpen && (
                 <AddAddressModal 
-                    show={isModalOpen}
-                    onClose={handleCloseModal} 
+                    show={isAddressModalOpen}
+                    onClose={handleCloseAddressModal} 
                     userId={userId}
                     onAddressAdded={handleAddressAdded}
+                />
+            )}
+            {isCreditCardModalOpen && (
+                <AddCreditCardModal 
+                    show={isCreditCardModalOpen}
+                    onClose={handleCloseCreditCardModal} 
+                    onCreditCardAdded={handleCreditCardAdded}
+                    userId={userId}
                 />
             )}
         </div>

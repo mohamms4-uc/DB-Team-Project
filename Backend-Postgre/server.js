@@ -107,6 +107,28 @@ app.delete('/api/address/:addressId', async (req, res) => {
     }
 });
 
+// Endpoint to add a credit card
+app.post('/api/creditcard', async (req, res) => {
+    const { userId, card_number, pin, expiration_date, address_id } = req.body;
+
+    try {
+        if (!userId || !card_number || !pin || !expiration_date || !address_id) {
+            return res.status(400).send('Bad Request: Missing required fields');
+        }
+
+        const result = await pool.query(`
+            INSERT INTO creditcard (c_user_id, card_number, pin, expiration_date, c_address_id)
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *
+        `, [userId, card_number, pin, expiration_date, address_id]);
+
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error('Error adding credit card:', err);
+        res.status(500).send(`Internal Server Error: ${err.message}`);
+    }
+});
+
 
 
 app.listen(port, () => {
