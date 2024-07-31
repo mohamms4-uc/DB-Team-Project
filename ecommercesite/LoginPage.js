@@ -6,10 +6,6 @@ import './LoginPage.css';
 const LoginPage = () => {
     const [users, setUsers] = useState([]);
     const navigate = useNavigate(); // Define navigate here
-    useEffect(() => {
-        console.log('LoginPage component mounted');
-    }, []);
-    
 
     useEffect(() => {
         axios.get('http://localhost:5000/api/users')

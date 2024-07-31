@@ -1,7 +1,5 @@
 /* src/Dashboard.css */
 
-/* Existing styles */
-
 .dashboard-container {
     position: relative;
     height: 100vh;
@@ -34,7 +32,6 @@
     flex: 1;
     box-sizing: border-box;
     max-width: 50%;
-    position: relative; /* Ensure button positioning is correct */
 }
 
 .inner-card h2 {
@@ -75,34 +72,4 @@
 
 .inner-card button:hover {
     background-color: #0056b3;
-}
-
-/* New styles for address section with smaller button */
-.address-section {
-    display: flex;
-    align-items: center; /* Vertically center items */
-    justify-content: space-between; /* Space between text and button */
-    margin-bottom: 15px; /* Space below the address section */
-}
-
-.address-section h2 {
-    margin: 0; /* Remove default margin */
-}
-
-.address-section .add-button {
-    background-color: #007bff; 
-    color: white; 
-    border: none; 
-    border-radius: 5px; 
-    padding: 4px 8px; 
-    cursor: pointer; 
-    font-size: 12px; 
-}
-
-.address-section .add-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
-
-.address-info {
-    margin-top: 10px; /* Space between title/button and address info */
 }

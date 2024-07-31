@@ -1,0 +1,42 @@
+/* src/Cart.css */
+
+.cart-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: lightblue;
+    border-radius: 10px;
+    padding: 20px;
+    width: 50vw;
+    height: 50vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.inner-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.inner-card h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: medium;
+}
+
+.inner-card p {
+    margin: 0;
+    text-align: center;
+    font-size: medium;
+}
+

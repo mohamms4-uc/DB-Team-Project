@@ -53,23 +53,14 @@ app.get('/api/user/:userId', async (req, res) => {
                 app_user.user_id = $1
         `;
         const result = await pool.query(userQuery, [userId]);
-        res.json(result.rows[0]); // Send the first result row
+        const user = result.rows[0];
+        user.addresses = user.addresses || []; // Ensure addresses is an array
+        res.json(user);
     } catch (err) {
         console.error('Error fetching user data:', err);
         res.status(500).send('Internal Server Error');
     }
 });
-
-// Endpoint to get all products
-// app.get('/api/products', async (req, res) => {
-//     try {
-//         const result = await pool.query('SELECT * FROM product');
-//         res.json(result.rows);
-//     } catch (err) {
-//         console.error('Error fetching products:', err);
-//         res.status(500).send('Internal Server Error');
-//     }
-// });
 
 // Endpoint to get all products with optional search filter
 app.get('/api/products', async (req, res) => {
@@ -84,6 +75,22 @@ app.get('/api/products', async (req, res) => {
         res.json(result.rows);
     } catch (err) {
         console.error('Error fetching products:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Endpoint to add an address
+app.post('/api/address', async (req, res) => {
+    const { address_type, street, city, state, postal_code, country, user_id } = req.body;
+    try {
+        const result = await pool.query(`
+            INSERT INTO address (address_type, street, city, state, postal_code, country)
+            VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING *
+        `, [address_type, street, city, state, postal_code, country]);
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error('Error adding address:', err);
         res.status(500).send('Internal Server Error');
     }
 });
