@@ -93,7 +93,7 @@ create Table Product(
 
 
 create Table Product_Order(
-	order_ID int,
+	order_ID serial primary key,
 	o_product_ID int,
 	quantity int,
 	date_issued date,

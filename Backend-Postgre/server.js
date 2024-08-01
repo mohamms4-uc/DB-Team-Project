@@ -611,30 +611,28 @@ app.delete('/api/product/:productId', async (req, res) => {
 
 
 // Endpoint to add stock to a warehouse
+// Endpoint to add stock to a warehouse
 app.post('/api/warehouse/stock', async (req, res) => {
     const { productId, warehouseId, quantity } = req.body;
 
-    // Validate input
-    if (!productId || !warehouseId || quantity === undefined || quantity <= 0) {
-        return res.status(400).send('Bad Request: Missing or invalid fields');
+    if (!productId || !warehouseId || !quantity || quantity <= 0) {
+        return res.status(400).send('Bad Request: Missing required fields or invalid quantity');
     }
 
     try {
-        // Update stock quantity for the specified product and warehouse
+        // Update the warehouse capacity
         const result = await pool.query(`
-            UPDATE product
-            SET stock_quantity = stock_quantity + $1
-            WHERE product_id = $2 AND p_warehouse_id = $3
+            UPDATE Warehouse
+            SET capacity = capacity + $3
+            WHERE warehouse_id = $2 AND product_id = $1
             RETURNING *
-        `, [quantity, productId, warehouseId]);
+        `, [productId, warehouseId, quantity]);
 
-        // Check if any rows were affected
         if (result.rowCount === 0) {
-            return res.status(404).send('Product or warehouse not found');
+            return res.status(404).send('Warehouse or product not found');
         }
 
-        // Successfully updated
-        res.json(result.rows[0]);
+        res.status(200).json(result.rows[0]);
     } catch (err) {
         console.error('Error adding stock to warehouse:', err);
         res.status(500).send('Internal Server Error');
