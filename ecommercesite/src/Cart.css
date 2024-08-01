@@ -40,3 +40,9 @@
     font-size: medium;
 }
 
+.checkout-modal .modal-dialog {
+    z-index: 1050; /* Ensure the modal is on top */
+}
+
+
+
