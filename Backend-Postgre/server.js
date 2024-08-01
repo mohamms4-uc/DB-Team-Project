@@ -639,7 +639,35 @@ app.post('/api/warehouse/stock', async (req, res) => {
     }
 });
 
+app.get('/warehouses', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM warehouse');
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error executing query', error.stack);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
+// API route to update a product
+app.put('/api/products/:product_id', async (req, res) => {
+    const { product_id } = req.params;
+    const { category, brand, item_name, item_size, description, p_warehouse_id, standard_price } = req.body;
+
+    try {
+        const result = await pool.query(
+            `UPDATE product
+            SET category = $1, brand = $2, item_name = $3, item_size = $4, description = $5, p_warehouse_id = $6, standard_price = $7
+            WHERE product_id = $8 RETURNING *`,
+            [category, brand, item_name, item_size, description, p_warehouse_id, standard_price, product_id]
+        );
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error('Error updating product:', error);
+        res.status(500).send('Server error');
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
