@@ -1,0 +1,108 @@
+/* src/CheckoutModal.css */
+
+/* Override Bootstrap's default modal positioning */
+.checkout-modal .modal-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    max-width: 90%;
+    width: 100%;
+}
+
+.checkout-modal .modal-content {
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.checkout-modal .modal-header {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.checkout-modal .modal-header .close {
+    border: none;
+    background: none;
+    color: #dc3545;
+    font-size: 1.5em;
+}
+
+.checkout-modal .modal-header .close:hover {
+    color: #c82333;
+}
+
+.checkout-modal .modal-body {
+    padding: 20px;
+}
+
+.checkout-modal .modal-footer {
+    border-top: 1px solid #ddd;
+    padding: 10px 20px;
+}
+
+.checkout-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.checkout-table th, .checkout-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.checkout-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.checkout-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.checkout-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.checkout-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.checkout-total {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.complete-order-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.complete-order-button:hover {
+    background-color: #0056b3;
+}
+
+.cancel-button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+}

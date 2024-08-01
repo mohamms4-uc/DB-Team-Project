@@ -5,6 +5,7 @@ import './ItemList.css';
 const ItemList = () => {
     const [items, setItems] = useState([]);
     const [search, setSearch] = useState('');
+    const [userId, setUserId] = useState(1); // Replace with actual user ID retrieval logic
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -19,9 +20,17 @@ const ItemList = () => {
         fetchProducts();
     }, []);
 
-    const handleAddToCart = (productId) => {
-        // Implement functionality to add item to cart
-        console.log(`Added product ${productId} to cart`);
+    const handleAddToCart = async (productId) => {
+        try {
+            await axios.post('http://localhost:5000/api/cart', {
+                userId,
+                productId,
+                quantity: 1, // Default quantity
+            });
+            console.log(`Added product ${productId} to cart`);
+        } catch (error) {
+            console.error('Error adding item to cart:', error);
+        }
     };
 
     const handleSearchChange = (e) => {

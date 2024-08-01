@@ -11,7 +11,7 @@
     height: 50vh;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: row;
+    flex-direction: column; /* Changed to column for better layout */
     gap: 20px;
     box-sizing: border-box;
     overflow: auto;
@@ -40,3 +40,67 @@
     font-size: medium;
 }
 
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Add space between heading and table */
+}
+
+.cart-table th, .cart-table td {
+    border: 1px solid #ddd;
+    padding: 12px; /* Increased padding for spacing */
+    text-align: left;
+}
+
+.cart-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.cart-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Zebra striping for readability */
+}
+
+.cart-table tr:hover {
+    background-color: #f1f1f1; /* Hover effect for rows */
+}
+
+.cart-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.cart-total {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.checkout-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.checkout-button:hover {
+    background-color: #0056b3;
+}
+
+.remove-button {
+    background-color: #dc3545; /* Red background color */
+    color: white;
+    border: none;
+    padding: 8px 12px; /* Adjusted padding for better appearance */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.remove-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
