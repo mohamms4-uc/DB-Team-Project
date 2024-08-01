@@ -34,10 +34,10 @@ const CheckoutModal = ({ show, handleClose, cartItems, userId }) => {
                 userId,
                 creditCardId: selectedCreditCard,
                 deliveryType: deliveryPlan,
-                deliveryPrice: 10, // Example delivery price
+                deliveryPrice: deliveryPlan === 'Express' ? 20 : 10, // Update based on selected plan
                 deliverDate: new Date().toISOString().split('T')[0] // Example deliver date
             });
-
+    
             alert('Order completed successfully!');
             handleClose();
         } catch (error) {
@@ -45,6 +45,7 @@ const CheckoutModal = ({ show, handleClose, cartItems, userId }) => {
             alert('Error completing order');
         }
     };
+    
 
     return (
         <Modal
