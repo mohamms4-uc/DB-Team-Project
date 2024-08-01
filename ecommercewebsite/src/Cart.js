@@ -29,11 +29,19 @@ const Cart = () => {
     const handleCheckout = () => setModalShow(true);
 
     const handleRemoveItem = async (productId) => {
-        // Implement item removal logic here
-        // Example:
-        // await axios.delete(`http://localhost:5000/api/cart/${productId}`);
-        // setCartItems(cartItems.filter(item => item.product_id !== productId));
+        try {
+            await axios.put(`http://localhost:5000/api/cart/removeOne`, { userId, productId });
+            setCartItems(cartItems.map(item => 
+                item.product_id === productId 
+                    ? { ...item, quantity: item.quantity - 1 }
+                    : item
+            ).filter(item => item.quantity > 0));
+        } catch (error) {
+            console.error('Error removing item from cart:', error);
+        }
     };
+    
+    
 
     return (
         <div className="cart-container">

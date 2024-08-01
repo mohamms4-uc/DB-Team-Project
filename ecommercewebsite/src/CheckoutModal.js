@@ -115,8 +115,8 @@ const CheckoutModal = ({ show, handleClose, cartItems, userId }) => {
                             <option value="">Select Credit Card</option>
                             {creditCards.map(card => (
                                 <option key={card.credit_id} value={card.credit_id}>
-                                    **** **** **** {card.card_number.slice(-4)}
-                                </option>
+                                    **** **** **** {String(card.card_number || '').slice(-4)}
+                                    </option>
                             ))}
                         </Form.Control>
                     </Form.Group>
