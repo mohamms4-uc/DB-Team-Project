@@ -111,5 +111,15 @@ create Table Product_Order(
 );
 	
 	
+CREATE TABLE ShoppingCart (
+    cart_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES App_User(user_id),
+    FOREIGN KEY (product_id) REFERENCES Product(product_id),
+    UNIQUE (user_id, product_id) -- Ensures a user can only have one entry per product
+);
+
 	
 	
