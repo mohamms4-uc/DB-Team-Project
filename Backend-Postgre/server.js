@@ -12,7 +12,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'ecommerce',
-    password: 'Yale050102%',
+    password: 'Salmasafe1',
     port: 5432,
 });
 
@@ -165,15 +165,50 @@ app.post('/api/cart', async (req, res) => {
 });
 
 // Endpoint to remove an item from the shopping cart
-app.delete('/api/cart', async (req, res) => {
+// app.delete('/api/cart', async (req, res) => {
+//     const { userId, productId } = req.body;
+
+//     try {
+//         await pool.query(`
+//             DELETE FROM ShoppingCart
+//             WHERE user_id = $1 AND product_id = $2
+//         `, [userId, productId]);
+//         res.status(204).send(); // No Content
+//     } catch (err) {
+//         console.error('Error removing item from cart:', err);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
+
+
+// Endpoint to remove one quantity of an item from the shopping cart
+app.put('/api/cart/removeOne', async (req, res) => {
     const { userId, productId } = req.body;
 
     try {
-        await pool.query(`
-            DELETE FROM ShoppingCart
-            WHERE user_id = $1 AND product_id = $2
+        const quantityResult = await pool.query(`
+            SELECT quantity FROM ShoppingCart WHERE user_id = $1 AND product_id = $2
         `, [userId, productId]);
-        res.status(204).send(); // No Content
+
+        if (quantityResult.rows.length === 0) {
+            return res.status(404).send('Item not found in cart');
+        }
+
+        const currentQuantity = quantityResult.rows[0].quantity;
+
+        if (currentQuantity > 1) {
+            await pool.query(`
+                UPDATE ShoppingCart
+                SET quantity = quantity - 1
+                WHERE user_id = $1 AND product_id = $2
+            `, [userId, productId]);
+        } else {
+            await pool.query(`
+                DELETE FROM ShoppingCart WHERE user_id = $1 AND product_id = $2
+            `, [userId, productId]);
+        }
+
+        res.status(200).send('Item quantity decreased or removed');
     } catch (err) {
         console.error('Error removing item from cart:', err);
         res.status(500).send('Internal Server Error');
@@ -246,6 +281,8 @@ app.get('/api/cart/:userId', async (req, res) => {
 
 
 // Endpoint to submit an order
+// Express.js API endpoint to submit an order
+// Endpoint to submit an order// Endpoint to submit an order
 app.post('/api/order', async (req, res) => {
     const { userId, creditCardId, deliveryType, deliveryPrice, deliverDate } = req.body;
 
@@ -304,10 +341,10 @@ app.post('/api/order', async (req, res) => {
             // Get the new order ID
             const orderId = orderResult.rows[0].order_id;
 
-            // Update the warehouse inventory (assuming a function to get warehouse info)
+            // Update the warehouse capacity (adjusting for quantity ordered)
             await pool.query(`
                 UPDATE Warehouse
-                SET stock = stock - $1
+                SET capacity = capacity - $1
                 WHERE warehouse_id = (
                     SELECT p_warehouse_id FROM Product WHERE product_id = $2
                 )
@@ -330,6 +367,7 @@ app.post('/api/order', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 
 // Endpoint to get details of a specific order
