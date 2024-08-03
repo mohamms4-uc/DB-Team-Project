@@ -10,7 +10,6 @@ The Implementation of our site is contained in the following folders:
 - Backend-Postgre
 - ecommercesite
 - ecommercewebsite
-- node_modules
 
 ## Credits
 This project was created by Daniel Vennemeyer, Yale Miller, Daniel Lindsay and Salma Mohammed
