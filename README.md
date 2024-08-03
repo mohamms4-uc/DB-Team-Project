@@ -11,5 +11,8 @@ The Implementation of our site is contained in the following folders:
 - ecommercesite
 - ecommercewebsite
 
+## Video
+The Video can be found in the DB Video.mov file in the outermost directory
+
 ## Credits
 This project was created by Daniel Vennemeyer, Yale Miller, Daniel Lindsay and Salma Mohammed
